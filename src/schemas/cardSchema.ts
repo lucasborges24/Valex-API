@@ -9,6 +9,6 @@ export const apiKeySchema = joi
 export const typeSchema = joi.object({
   type: joi
     .string()
-    .valid("groceries", "restaurants", "transport", "education", "health")
+    .valid("groceries", "restaurant", "transport", "education", "health")
     .required(),
 });
