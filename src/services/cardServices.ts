@@ -1,7 +1,7 @@
 import {
   companyRepository,
   employeeRepository,
-} from "../repositories/index.js";
+} from "../repositories/index";
 
 export const checkApiKeyBelongSomeCompany = async (apikey: string) => {
   const company: object = await companyRepository.findByApiKey(apikey);

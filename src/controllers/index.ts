@@ -1,1 +1,1 @@
-export * as cardController from "./cardController.js";
+export * as cardController from "./cardController";

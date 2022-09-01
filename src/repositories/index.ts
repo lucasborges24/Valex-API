@@ -1,6 +1,6 @@
-export * as businessRepository from "./businessRepository.js";
-export * as cardRepository from "./cardRepository.js";
-export * as companyRepository from "./companyRepository.js";
-export * as employeeRepository from "./employeeRepository.js";
-export * as paymentRepository from "./paymentRepository.js";
-export * as rechargeRepository from "./rechargeRepository.js";
+export * as businessRepository from "./businessRepository";
+export * as cardRepository from "./cardRepository";
+export * as companyRepository from "./companyRepository";
+export * as employeeRepository from "./employeeRepository";
+export * as paymentRepository from "./paymentRepository";
+export * as rechargeRepository from "./rechargeRepository";

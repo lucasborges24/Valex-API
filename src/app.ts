@@ -3,8 +3,8 @@ import "express-async-errors";
 import cors from "cors";
 import dotenv from "dotenv";
 
-import router from "./routes/index.js";
-import errorHandler from "./middlewares/errorHandle.js";
+import router from "./routes/index";
+import errorHandler from "./middlewares/errorHandle";
 
 dotenv.config();
 

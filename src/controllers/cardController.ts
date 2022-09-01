@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { cardService } from "../services/index.js";
+import { cardService } from "../services/index";
 
 export const createCard = async (req: Request, res: Response) => {
   const { apikey }: { apikey: string } = res.locals.headers;

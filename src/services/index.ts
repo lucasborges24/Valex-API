@@ -1,1 +1,1 @@
-export * as cardService from "./cardServices.js";
+export * as cardService from "./cardServices";

@@ -1,12 +1,12 @@
 import { Router, Request, Response } from "express";
 
-import { cardController } from "../controllers/index.js";
-import { validateParamsId } from "../middlewares/idMiddleware.js";
+import { cardController } from "../controllers/index";
+import { validateParamsId } from "../middlewares/idMiddleware";
 import {
   validateHeaderSchema,
   validateBodySchema,
-} from "../middlewares/schemaMiddleware.js";
-import { apiKeySchema, typeSchema } from "../schemas/cardSchema.js";
+} from "../middlewares/schemaMiddleware";
+import { apiKeySchema, typeSchema } from "../schemas/cardSchema";
 
 const cardRouter = Router();
 
