@@ -142,4 +142,11 @@ export const checkSecurityCodeisValid = (
   }
   return decryptedCode;
 };
+export const encryptPasswordByBcrypt = async (password: string) => {
+  try {
+    const hash = bcrypt.hashSync(password, SALT);
+    return hash;
+  } catch (err) {
+    throw err;
 }
+};
