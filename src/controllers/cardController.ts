@@ -38,5 +38,19 @@ export const createCard = async (req: Request, res: Response) => {
     type,
   };
   await cardService.createCard(newCard);
-  res.status(201).send('Cartão criado!');
+  res.status(201).send("Cartão criado!");
+};
+
+export const activeCard = async (req: Request, res: Response) => {
+  const cardId: number = res.locals.id;
+  const card: Card = await cardService.getCardById(cardId);
+  cardService.checkTodayisGreaterDateInFormatMMYY(card.expirationDate);
+  cardService.checkCardisActiveByPassword(card.password);
+
+  const { securityCode, password } = res.locals.body;
+  cardService.checkSecurityCodeisValid(card.securityCode, securityCode);
+  const encryptedPassword = await cardService.encryptPasswordByBcrypt(password);
+  await cardService.activeCard(cardId, {password: encryptedPassword})
+
+  res.status(200).send("Cartão Ativado.");
 };
