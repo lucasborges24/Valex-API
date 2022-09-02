@@ -127,4 +127,19 @@ export const checkCardisActiveByPassword = (password?: string) => {
   }
   return;
 };
+
+export const checkSecurityCodeisValid = (
+  encryptedCode: string,
+  code: string
+) => {
+  const decryptedCode = cryptr.decrypt(encryptedCode);
+  if (decryptedCode !== code) {
+    const error: object = {
+      type: "Unauthorized",
+      message: "CVC invalido.",
+    };
+    throw error;
+  }
+  return decryptedCode;
+};
 }
