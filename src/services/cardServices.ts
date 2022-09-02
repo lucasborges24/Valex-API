@@ -6,12 +6,16 @@ import {
   cardRepository,
   companyRepository,
   employeeRepository,
+  paymentRepository,
+  rechargeRepository,
 } from "../repositories/index";
 import {
   CardInsertData,
   CardUpdateData,
   TransactionTypes,
 } from "../repositories/cardRepository";
+import { PaymentWithBusinessName } from "../repositories/paymentRepository";
+import { Recharge } from "../repositories/rechargeRepository";
 
 dotenv.config();
 const { CRYPTR_KEY } = process.env;
@@ -178,4 +182,20 @@ export const getCardTransactions = async (cardId: number) => {
 export const getCardRecharges = async (cardId: number) => {
   const recharges = await rechargeRepository.findByCardId(cardId);
   return recharges;
+};
+
+export const evaluateBalance = (
+  transactions: PaymentWithBusinessName[],
+  recharges: Recharge[]
+) => {
+  const transactionSum = transactions.reduce(
+    (total: number, amount: any) => total + amount.amount,
+    0
+  );
+  const rechargeSum = recharges.reduce(
+    (total: number, amount: any) => total + amount.amount,
+    0
+  );
+  const balance = rechargeSum - transactionSum;
+  return balance;
 };
