@@ -54,3 +54,16 @@ export const activeCard = async (req: Request, res: Response) => {
 
   res.status(200).send("Cartão Ativado.");
 };
+
+export const getCardBalance = async (req: Request, res: Response) => {
+  const cardId: number = res.locals.id;
+  await cardService.getCardById(cardId);
+  const transactions = await cardService.getCardTransactions(cardId);
+  const recharges = await cardService.getCardRecharges(cardId);
+  const response: object = {
+    balance: cardService.evaluateBalance(transactions, recharges),
+    transactions,
+    recharges,
+  };
+  res.status(200).send(response);
+};
