@@ -169,3 +169,8 @@ export const activeCard = async (id: number, card: CardUpdateData) => {
   await cardRepository.update(id, card);
   return;
 };
+
+export const getCardTransactions = async (cardId: number) => {
+  const transactions = await paymentRepository.findByCardId(cardId);
+  return transactions;
+};
