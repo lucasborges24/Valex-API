@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { faker } from "@faker-js/faker";
 import { cardService } from "../services/index";
 import {
+  Card,
   CardInsertData,
   TransactionTypes,
 } from "../repositories/cardRepository";
@@ -11,7 +12,7 @@ export const createCard = async (req: Request, res: Response) => {
   const { type }: { type: TransactionTypes } = res.locals.body;
   const employeeId: number = res.locals.id;
 
-  const company = await cardService.checkApiKeyBelongSomeCompany(apikey);
+  await cardService.checkApiKeyBelongSomeCompany(apikey);
   const employer = await cardService.checkEmployeeIdBelongsSomeEmployer(
     employeeId
   );
