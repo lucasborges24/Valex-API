@@ -1,12 +1,22 @@
 import dayjs from "dayjs";
 import Cryptr from "cryptr";
 import dotenv from "dotenv";
-import { cardRepository, companyRepository, employeeRepository } from "../repositories/index";
-import { CardInsertData, TransactionTypes } from "../repositories/cardRepository";
+import bcrypt from "bcrypt";
+import {
+  cardRepository,
+  companyRepository,
+  employeeRepository,
+} from "../repositories/index";
+import {
+  CardInsertData,
+  CardUpdateData,
+  TransactionTypes,
+} from "../repositories/cardRepository";
 
 dotenv.config();
 const { CRYPTR_KEY } = process.env;
 const cryptr = new Cryptr(CRYPTR_KEY!);
+const SALT = 10;
 
 export const checkApiKeyBelongSomeCompany = async (apikey: string) => {
   const company = await companyRepository.findByApiKey(apikey);
@@ -68,7 +78,7 @@ export const encryptCvc = async (cvc: string) => {
 
 export const createCard = async (card: CardInsertData) => {
   await cardRepository.insert(card);
-    return true;
+  return true;
 };
 
 export const checkTypeCardByEmployee = async (
@@ -87,6 +97,8 @@ export const checkTypeCardByEmployee = async (
     throw error;
   }
   return;
+};
+
 export const getCardById = async (id: number) => {
   const card = await cardRepository.findById(id);
   if (!card) {
@@ -98,6 +110,7 @@ export const getCardById = async (id: number) => {
   }
   return card;
 };
+
 export const checkTodayisGreaterDateInFormatMMYY = (date: string) => {
   const todayYear = dayjs().format("YY");
   const todayMonth = dayjs().format("MM");
@@ -142,13 +155,14 @@ export const checkSecurityCodeisValid = (
   }
   return decryptedCode;
 };
+
 export const encryptPasswordByBcrypt = async (password: string) => {
   try {
     const hash = bcrypt.hashSync(password, SALT);
     return hash;
   } catch (err) {
     throw err;
-}
+  }
 };
 
 export const activeCard = async (id: number, card: CardUpdateData) => {
