@@ -67,12 +67,18 @@ export const encryptCvc = async (cvc: string) => {
 };
 
 export const createCard = async (card: CardInsertData) => {
-    await cardRepository.insert(card)
+  await cardRepository.insert(card);
     return true;
-  }
+};
 
-export const checkTypeCardByEmployee = async (type: TransactionTypes, id: number) => {
-  const typeAlreadyExists = await cardRepository.findByTypeAndEmployeeId(type, id)
+export const checkTypeCardByEmployee = async (
+  type: TransactionTypes,
+  id: number
+) => {
+  const typeAlreadyExists = await cardRepository.findByTypeAndEmployeeId(
+    type,
+    id
+  );
   if (typeAlreadyExists) {
     const error: object = {
       type: "Conflit",
