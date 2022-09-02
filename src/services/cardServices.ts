@@ -98,4 +98,22 @@ export const getCardById = async (id: number) => {
   }
   return card;
 };
+export const checkTodayisGreaterDateInFormatMMYY = (date: string) => {
+  const todayYear = dayjs().format("YY");
+  const todayMonth = dayjs().format("MM");
+  const dateYear = date.split("/")[1];
+  const dateMonth = date.split("/")[0];
+  const error: object = {
+    type: "Unauthorized",
+    message: "Cartão expirado.",
+  };
+  if (dateYear < todayYear) {
+    throw error;
+  } else if (dateYear === todayYear) {
+    if (dateMonth < todayMonth) {
+      throw error;
+    }
+  }
+  return;
+};
 }
