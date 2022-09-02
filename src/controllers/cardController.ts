@@ -50,7 +50,7 @@ export const activeCard = async (req: Request, res: Response) => {
   const { securityCode, password } = res.locals.body;
   cardService.checkSecurityCodeisValid(card.securityCode, securityCode);
   const encryptedPassword = await cardService.encryptPasswordByBcrypt(password);
-  await cardService.activeCard(cardId, {password: encryptedPassword})
+  await cardService.activeCard(cardId, { password: encryptedPassword });
 
   res.status(200).send("Cartão Ativado.");
 };
