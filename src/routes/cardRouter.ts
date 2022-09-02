@@ -6,7 +6,7 @@ import {
   validateHeaderSchema,
   validateBodySchema,
 } from "../middlewares/schemaMiddleware";
-import { apiKeySchema, typeSchema } from "../schemas/cardSchema";
+import { activeSchema, apiKeySchema, typeSchema } from "../schemas/cardSchema";
 
 const cardRouter = Router();
 
@@ -16,6 +16,13 @@ cardRouter.post(
   validateBodySchema(typeSchema),
   validateParamsId("employeeId"),
   cardController.createCard
+);
+
+cardRouter.put(
+  "/card/active/:cardId",
+  validateBodySchema(activeSchema),
+  validateParamsId("cardId"),
+  cardController.activeCard
 );
 
 export { cardRouter };
