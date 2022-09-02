@@ -12,6 +12,8 @@ const errorHandler: ErrorRequestHandler = async (
     return res.status(404).send(error.message);
   } else if (error.type === "Conflit") {
     return res.status(409).send(error.message);
+  } else if (error.type === "Unauthorized") {
+    return res.status(401).send(error.message);
   }
 
   return res.status(500).send(error?.message);
