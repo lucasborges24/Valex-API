@@ -61,17 +61,11 @@ export const generateValidateCardDate = async () => {
 };
 
 
-// export const encryptCvc = async (cvc: string) => {
-//   const { CRYPTR_KEY } = process.env
-//   const cryptr = new Cryptr(CRYPTR_KEY);
+export const encryptCvc = async (cvc: string) => {
+  const { CRYPTR_KEY } = process.env
+  const cryptr = new Cryptr(CRYPTR_KEY!);
   
 
-//   const ecryptedCvc = cryptr.encrypt(cvc)
-//   return ecryptedCvc;
-// };
-
-export const encryptCvc = async (cvc: string) => {
-  const cryptr = new Cryptr('senha_super_secreta');
   const ecryptedCvc = cryptr.encrypt(cvc)
   return ecryptedCvc;
 };
