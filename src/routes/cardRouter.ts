@@ -25,4 +25,10 @@ cardRouter.put(
   cardController.activeCard
 );
 
+cardRouter.get(
+  "/card/view/:cardId",
+  validateParamsId("cardId"),
+  cardController.getCardBalance
+);
+
 export { cardRouter };
