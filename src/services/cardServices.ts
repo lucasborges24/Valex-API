@@ -87,4 +87,15 @@ export const checkTypeCardByEmployee = async (
     throw error;
   }
   return;
+export const getCardById = async (id: number) => {
+  const card = await cardRepository.findById(id);
+  if (!card) {
+    const error: object = {
+      type: "Not_Found",
+      message: "Cartão não encontrado.",
+    };
+    throw error;
+  }
+  return card;
+};
 }
