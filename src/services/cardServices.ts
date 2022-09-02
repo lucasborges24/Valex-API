@@ -150,3 +150,8 @@ export const encryptPasswordByBcrypt = async (password: string) => {
     throw err;
 }
 };
+
+export const activeCard = async (id: number, card: CardUpdateData) => {
+  await cardRepository.update(id, card);
+  return;
+};
