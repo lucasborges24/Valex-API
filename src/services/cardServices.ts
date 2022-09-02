@@ -116,4 +116,15 @@ export const checkTodayisGreaterDateInFormatMMYY = (date: string) => {
   }
   return;
 };
+
+export const checkCardisActiveByPassword = (password?: string) => {
+  if (password) {
+    const error: object = {
+      type: "Conflit",
+      message: "Cartão já foi ativado.",
+    };
+    throw error;
+  }
+  return;
+};
 }
