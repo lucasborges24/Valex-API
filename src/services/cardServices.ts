@@ -5,7 +5,8 @@ import { cardRepository, companyRepository, employeeRepository } from "../reposi
 import { CardInsertData, TransactionTypes } from "../repositories/cardRepository";
 
 dotenv.config();
-
+const { CRYPTR_KEY } = process.env;
+const cryptr = new Cryptr(CRYPTR_KEY!);
 
 export const checkApiKeyBelongSomeCompany = async (apikey: string) => {
   const company = await companyRepository.findByApiKey(apikey);
@@ -60,13 +61,8 @@ export const generateValidateCardDate = async () => {
   return validateDate;
 };
 
-
 export const encryptCvc = async (cvc: string) => {
-  const { CRYPTR_KEY } = process.env
-  const cryptr = new Cryptr(CRYPTR_KEY!);
-  
-
-  const ecryptedCvc = cryptr.encrypt(cvc)
+  const ecryptedCvc = cryptr.encrypt(cvc);
   return ecryptedCvc;
 };
 
