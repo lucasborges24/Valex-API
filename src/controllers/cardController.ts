@@ -67,3 +67,15 @@ export const getCardBalance = async (req: Request, res: Response) => {
   };
   res.status(200).send(response);
 };
+
+export const blockCard = async (req: Request, res: Response) => {
+  const cardId: number = res.locals.id;
+  const card: Card = await cardService.getCardById(cardId);
+  cardService.checkCardisNotActiveByPassword(card.password);
+  cardService.checkTodayisGreaterDateInFormatMMYY(card.expirationDate);
+  cardService.checkCardIsBlocked(card.isBlocked);
+  const { password } = req.body;  
+  await cardService.validatePassword(password, card.password!);
+  await cardService.blockCard(cardId, {isBlocked: !card.isBlocked})
+  res.status(201).send("Cartão bloqueado!");
+};
