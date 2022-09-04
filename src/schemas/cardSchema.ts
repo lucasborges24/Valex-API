@@ -23,3 +23,10 @@ export const activeSchema = joi.object({
     .pattern(/^[0-9]{3}$/)
     .required(),
 });
+
+export const blockSchema = joi.object({
+  password: joi
+    .string()
+    .pattern(/^[0-9]{4}$/)
+    .required(),
+});
