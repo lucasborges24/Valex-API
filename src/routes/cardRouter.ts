@@ -43,4 +43,11 @@ cardRouter.put(
   cardController.blockCard
 );
 
+cardRouter.put(
+  "/card/unblock/:cardId",
+  validateBodySchema(blockSchema),
+  validateParamsId("cardId"),
+  cardController.unblockCard
+);
+
 export { cardRouter };
