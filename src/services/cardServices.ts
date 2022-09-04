@@ -213,6 +213,17 @@ export const checkCardIsBlocked = (isBlocked: boolean) => {
   return;
 };
 
+export const checkCardIsNotBlocked = (isBlocked: boolean) => {
+  if (!isBlocked) {
+    const error: object = {
+      type: "Unprocessable_Entity",
+      message: "Cartão não está bloqueado.",
+    };
+    throw error;
+  }
+  return;
+};
+
 export const validatePassword = async (
   password: string,
   encryptedPassword: string
