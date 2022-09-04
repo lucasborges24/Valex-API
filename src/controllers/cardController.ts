@@ -74,8 +74,20 @@ export const blockCard = async (req: Request, res: Response) => {
   cardService.checkCardisNotActiveByPassword(card.password);
   cardService.checkTodayisGreaterDateInFormatMMYY(card.expirationDate);
   cardService.checkCardIsBlocked(card.isBlocked);
-  const { password } = req.body;  
+  const { password } = req.body;
   await cardService.validatePassword(password, card.password!);
-  await cardService.blockCard(cardId, {isBlocked: !card.isBlocked})
+  await cardService.blockCard(cardId, { isBlocked: !card.isBlocked });
   res.status(201).send("Cartão bloqueado!");
+};
+
+export const unblockCard = async (req: Request, res: Response) => {
+  const cardId: number = res.locals.id;
+  const card: Card = await cardService.getCardById(cardId);
+  cardService.checkCardisNotActiveByPassword(card.password);
+  cardService.checkTodayisGreaterDateInFormatMMYY(card.expirationDate);
+  cardService.checkCardIsNotBlocked(card.isBlocked);
+  const { password } = req.body;
+  await cardService.validatePassword(password, card.password!);
+  await cardService.blockCard(cardId, { isBlocked: !card.isBlocked });
+  res.status(201).send("Cartão desbloqueado!");
 };
