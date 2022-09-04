@@ -6,7 +6,12 @@ import {
   validateHeaderSchema,
   validateBodySchema,
 } from "../middlewares/schemaMiddleware";
-import { activeSchema, apiKeySchema, typeSchema } from "../schemas/cardSchema";
+import {
+  activeSchema,
+  apiKeySchema,
+  blockSchema,
+  typeSchema,
+} from "../schemas/cardSchema";
 
 const cardRouter = Router();
 
@@ -29,6 +34,13 @@ cardRouter.get(
   "/card/view/:cardId",
   validateParamsId("cardId"),
   cardController.getCardBalance
+);
+
+cardRouter.put(
+  "/card/block/:cardId",
+  validateBodySchema(blockSchema),
+  validateParamsId("cardId"),
+  cardController.blockCard
 );
 
 export { cardRouter };
