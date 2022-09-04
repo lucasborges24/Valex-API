@@ -150,6 +150,8 @@ export const checkSecurityCodeisValid = (
   code: string
 ) => {
   const decryptedCode = cryptr.decrypt(encryptedCode);
+  console.log(decryptedCode);
+  
   if (decryptedCode !== code) {
     const error: object = {
       type: "Unauthorized",
@@ -198,4 +200,46 @@ export const evaluateBalance = (
   );
   const balance = rechargeSum - transactionSum;
   return balance;
+};
+
+export const checkCardIsBlocked = (isBlocked: boolean) => {
+  if (isBlocked) {
+    const error: object = {
+      type: "Unprocessable_Entity",
+      message: "Cartão já está bloqueado.",
+    };
+    throw error;
+  }
+  return;
+};
+
+export const validatePassword = async (
+  password: string,
+  encryptedPassword: string
+) => {
+  const passwordIsValid = bcrypt.compareSync(password, encryptedPassword);  
+  if (!passwordIsValid) {
+    const error: object = {
+      type: "Unauthorized",
+      message: "Senha inválida.",
+    };
+    throw error;
+  }
+  return;
+};
+
+export const blockCard = async (id: number, card: any) => {
+  await cardRepository.update(id, card);
+  return;
+};
+
+export const checkCardisNotActiveByPassword = (password?: string) => {
+  if (!password) {
+    const error: object = {
+      type: "Unprocessable_Entity",
+      message: "Cartão Não foi ativado ainda!",
+    };
+    throw error;
+  }
+  return;
 };
