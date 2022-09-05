@@ -271,7 +271,11 @@ Start the server
 
 </br>
 
+## Author
+
+[![gitHub](https://img.shields.io/badge/-GitHub-181717?logo=gitHub&logoColor=white&style=for-the-badge)](https://github.com/lucasborges24)
 [![LinkedIn][linkedin-shield]][linkedin-url]
+[![AGPL License](https://img.shields.io/badge/-Instagram-E4405F?logo=instagram&logoColor=white&style=for-the-badge)](https://www.instagram.com/lucas__fisica/)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
