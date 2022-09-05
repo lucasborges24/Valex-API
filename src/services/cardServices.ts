@@ -206,7 +206,7 @@ export const checkCardIsBlocked = (isBlocked: boolean) => {
   if (isBlocked) {
     const error: object = {
       type: "Unprocessable_Entity",
-      message: "Cartão já está bloqueado.",
+      message: "Cartão está bloqueado.",
     };
     throw error;
   }
@@ -217,7 +217,7 @@ export const checkCardIsNotBlocked = (isBlocked: boolean) => {
   if (!isBlocked) {
     const error: object = {
       type: "Unprocessable_Entity",
-      message: "Cartão não está bloqueado.",
+      message: "Cartão está desbloqueado.",
     };
     throw error;
   }
