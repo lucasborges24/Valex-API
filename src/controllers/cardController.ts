@@ -10,7 +10,7 @@ import {
 export const createCard = async (req: Request, res: Response) => {
   const { apikey }: { apikey: string } = res.locals.headers;
   const { type }: { type: TransactionTypes } = res.locals.body;
-  const employeeId: number = res.locals.id;
+  const { employeeId } = res.locals;
 
   await cardService.checkApiKeyBelongSomeCompany(apikey);
   const employer = await cardService.checkEmployeeIdBelongsSomeEmployer(
@@ -22,9 +22,8 @@ export const createCard = async (req: Request, res: Response) => {
     employer.fullName
   );
   const expirationDate: string = await cardService.generateValidateCardDate();
-  const securityCode: string = await cardService.encryptCvc(
-    faker.random.numeric(3)
-  );
+  const cvc = faker.random.numeric(3);
+  const securityCode: string = await cardService.encryptCvc(cvc);
   const newCard: CardInsertData = {
     employeeId,
     number: faker.random.numeric(12),
@@ -38,11 +37,11 @@ export const createCard = async (req: Request, res: Response) => {
     type,
   };
   await cardService.createCard(newCard);
-  res.status(201).send("Cartão criado!");
+  res.status(201).send({...newCard, securityCode: cvc});
 };
 
 export const activeCard = async (req: Request, res: Response) => {
-  const cardId: number = res.locals.id;
+  const { cardId } = res.locals;
   const card: Card = await cardService.getCardById(cardId);
   cardService.checkTodayisGreaterDateInFormatMMYY(card.expirationDate);
   cardService.checkCardisActiveByPassword(card.password);
@@ -52,11 +51,11 @@ export const activeCard = async (req: Request, res: Response) => {
   const encryptedPassword = await cardService.encryptPasswordByBcrypt(password);
   await cardService.activeCard(cardId, { password: encryptedPassword });
 
-  res.status(200).send("Cartão Ativado.");
+  res.status(201).send("Cartão Ativado.");
 };
 
 export const getCardBalance = async (req: Request, res: Response) => {
-  const cardId: number = res.locals.id;
+  const { cardId } = res.locals;
   await cardService.getCardById(cardId);
   const transactions = await cardService.getCardTransactions(cardId);
   const recharges = await cardService.getCardRecharges(cardId);
@@ -69,24 +68,24 @@ export const getCardBalance = async (req: Request, res: Response) => {
 };
 
 export const blockCard = async (req: Request, res: Response) => {
-  const cardId: number = res.locals.id;
+  const { cardId } = res.locals;
   const card: Card = await cardService.getCardById(cardId);
   cardService.checkCardisNotActiveByPassword(card.password);
   cardService.checkTodayisGreaterDateInFormatMMYY(card.expirationDate);
   cardService.checkCardIsBlocked(card.isBlocked);
-  const { password } = req.body;
+  const { password } = res.locals.body;
   await cardService.validatePassword(password, card.password!);
   await cardService.blockCard(cardId, { isBlocked: !card.isBlocked });
   res.status(201).send("Cartão bloqueado!");
 };
 
 export const unblockCard = async (req: Request, res: Response) => {
-  const cardId: number = res.locals.id;
+  const { cardId } = res.locals;
   const card: Card = await cardService.getCardById(cardId);
   cardService.checkCardisNotActiveByPassword(card.password);
   cardService.checkTodayisGreaterDateInFormatMMYY(card.expirationDate);
   cardService.checkCardIsNotBlocked(card.isBlocked);
-  const { password } = req.body;
+  const { password } = res.locals.body;
   await cardService.validatePassword(password, card.password!);
   await cardService.blockCard(cardId, { isBlocked: !card.isBlocked });
   res.status(201).send("Cartão desbloqueado!");
