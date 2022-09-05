@@ -150,8 +150,6 @@ export const checkSecurityCodeisValid = (
   code: string
 ) => {
   const decryptedCode = cryptr.decrypt(encryptedCode);
-  console.log(decryptedCode);
-  
   if (decryptedCode !== code) {
     const error: object = {
       type: "Unauthorized",
@@ -228,7 +226,7 @@ export const validatePassword = async (
   password: string,
   encryptedPassword: string
 ) => {
-  const passwordIsValid = bcrypt.compareSync(password, encryptedPassword);  
+  const passwordIsValid = bcrypt.compareSync(password, encryptedPassword);
   if (!passwordIsValid) {
     const error: object = {
       type: "Unauthorized",
