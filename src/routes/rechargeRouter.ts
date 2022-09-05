@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { rechargeController } from "../controllers";
+import { rechargeController } from "../controllers/index";
 import { validateParamsId } from "../middlewares/idMiddleware";
 import {
   validateBodySchema,
