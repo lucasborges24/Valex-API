@@ -12,7 +12,7 @@ const validateParamsId = (enteredId: string) => {
       };
       throw error;
     }
-    res.locals.id = id;
+    res.locals[enteredId] = id;
     next();
   };
 };
